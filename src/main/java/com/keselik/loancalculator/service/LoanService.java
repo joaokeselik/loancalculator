@@ -1,6 +1,5 @@
 package com.keselik.loancalculator.service;
 
-import com.keselik.loancalculator.exception.LoanTypeNotFoundException;
 import com.keselik.loancalculator.model.LoanPayment;
 import com.keselik.loancalculator.model.LoanPaymentPlan;
 import com.keselik.loancalculator.model.LoanType;
@@ -13,27 +12,12 @@ import java.util.Map;
 
 @Service
 public class LoanService {
-    private final Map<String, LoanType> loanTypes;
 
-    @Autowired
-    public LoanService(Map<String, LoanType> loanTypes) {
-        this.loanTypes = loanTypes;
-    }
-
-    public LoanPaymentPlan calculateLoan(BigDecimal loanAmount, int paybackYears, String loanType) {
+    public LoanPaymentPlan calculateLoan(BigDecimal loanAmount, int paybackYears, LoanType loanType) {
         validateInputParameters(loanAmount, paybackYears);
 
-        /*
-        System.out.println("Content of the Map:");
-        for (Map.Entry<String, LoanType> entry : loanTypes.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-        }
-        */
 
-        LoanType selectedLoanType = loanTypes.get(loanType);
-
-
-        double interestRate = selectedLoanType.getInterestRate();
+        double interestRate = loanType.getInterestRate();
 
         int months = paybackYears * 12;
         BigDecimal monthlyInterestRate = BigDecimal.valueOf(interestRate/100/12);

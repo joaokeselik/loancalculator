@@ -1,7 +1,5 @@
 package com.keselik.loancalculator.controller;
 
-
-import com.keselik.loancalculator.config.LoanConfig;
 import com.keselik.loancalculator.model.LoanPaymentPlan;
 import com.keselik.loancalculator.model.LoanType;
 import com.keselik.loancalculator.service.LoanService;
@@ -42,7 +40,7 @@ public class LoanController {
     @PostMapping("/calculate")
     public String calculateLoan(@RequestParam BigDecimal loanAmount, @RequestParam int paybackYears, Model model, SessionStatus sessionStatus) {
         String loanType = (String) model.getAttribute("loanType");
-        LoanPaymentPlan paymentPlan = loanService.calculateLoan(loanAmount, paybackYears, loanType);
+        LoanPaymentPlan paymentPlan = loanService.calculateLoan(loanAmount, paybackYears, loanTypes.get(loanType));
         model.addAttribute("paymentPlan", paymentPlan);
         sessionStatus.setComplete();
 
