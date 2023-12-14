@@ -1,5 +1,6 @@
 package com.keselik.loancalculator.service;
 
+import com.keselik.loancalculator.exception.LoanTypeNotFoundException;
 import com.keselik.loancalculator.model.LoanPayment;
 import com.keselik.loancalculator.model.LoanPaymentPlan;
 import com.keselik.loancalculator.model.LoanType;
@@ -30,6 +31,8 @@ public class LoanService {
         */
 
         LoanType selectedLoanType = loanTypes.get(loanType);
+
+
         double interestRate = selectedLoanType.getInterestRate();
 
         int months = paybackYears * 12;

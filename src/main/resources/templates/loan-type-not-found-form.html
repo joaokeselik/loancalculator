@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Type Not Found</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #ff6347; /* Tomato color */
+        }
+
+        p {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Error: Loan Type Not Found</h2>
+<p th:text="${errorMessage}"></p>
+
+</body>
+</html>

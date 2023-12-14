@@ -1,17 +1,15 @@
 package com.keselik.loancalculator.exception;
 
-import com.keselik.loancalculator.model.LoanType;
-
 public class LoanTypeNotFoundException extends RuntimeException {
 
-    private final LoanType loanType;
+    private final String loanType;
 
-    public LoanTypeNotFoundException(LoanType loanType, String message) {
+    public LoanTypeNotFoundException(String loanType, String message) {
         super(message);
         this.loanType = loanType;
     }
 
-    public LoanType getLoanType() {
+    public String getLoanType() {
         return loanType;
     }
 }

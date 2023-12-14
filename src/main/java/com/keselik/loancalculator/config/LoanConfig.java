@@ -4,12 +4,22 @@ import com.keselik.loancalculator.model.CarLoan;
 import com.keselik.loancalculator.model.HousingLoan;
 import com.keselik.loancalculator.model.LoanType;
 import com.keselik.loancalculator.model.PersonalLoan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Map;
+
 @Configuration
 public class LoanConfig {
+
+    private final Map<String, LoanType> loanTypes;
+
+    @Autowired
+    public LoanConfig(Map<String, LoanType> loanTypes) {
+        this.loanTypes = loanTypes;
+    }
 
     @Bean
     @Qualifier("housing")

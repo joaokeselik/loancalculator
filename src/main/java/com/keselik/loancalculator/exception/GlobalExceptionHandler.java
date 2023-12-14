@@ -42,4 +42,11 @@ public class GlobalExceptionHandler {
         }
     }
 
+    @ExceptionHandler(LoanTypeNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleLoanTypeNotFoundException(HttpServletRequest request, LoanTypeNotFoundException ex, Model model) {
+        model.addAttribute("errorMessage", "Loan type not found: " + ex.getLoanType());
+        return "loan-type-not-found-form";
+    }
+
 }
