@@ -3,18 +3,34 @@ package com.keselik.loancalculator.service;
 import com.keselik.loancalculator.model.LoanPayment;
 import com.keselik.loancalculator.model.LoanPaymentPlan;
 import com.keselik.loancalculator.model.LoanType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Map;
 
 @Service
 public class LoanService {
+    private final Map<String, LoanType> loanTypes;
 
-    public LoanPaymentPlan calculateLoan(BigDecimal loanAmount, int paybackYears, LoanType loanType) {
+    @Autowired
+    public LoanService(Map<String, LoanType> loanTypes) {
+        this.loanTypes = loanTypes;
+    }
+
+    public LoanPaymentPlan calculateLoan(BigDecimal loanAmount, int paybackYears, String loanType) {
         validateInputParameters(loanAmount, paybackYears);
 
-        double interestRate = loanType.getInterestRate();
+        /*
+        System.out.println("Content of the Map:");
+        for (Map.Entry<String, LoanType> entry : loanTypes.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+        */
+
+        LoanType selectedLoanType = loanTypes.get(loanType);
+        double interestRate = selectedLoanType.getInterestRate();
 
         int months = paybackYears * 12;
         BigDecimal monthlyInterestRate = BigDecimal.valueOf(interestRate/100/12);

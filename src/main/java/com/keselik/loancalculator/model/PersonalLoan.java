@@ -3,9 +3,9 @@ package com.keselik.loancalculator.model;
 import org.springframework.stereotype.Component;
 
 @Component
-public class HousingLoan implements LoanType {
+public class PersonalLoan implements LoanType {
 
-    private static final double INTEREST_RATE = 3.5;
+    private static final double INTEREST_RATE = 6.5;
 
     @Override
     public double getInterestRate() {
