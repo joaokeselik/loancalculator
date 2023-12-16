@@ -2,13 +2,15 @@ package com.keselik.loancalculator.model;
 
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+
 @Component
 public class HousingLoan implements LoanType {
 
-    private static final double INTEREST_RATE = 3.5;
+    private static final BigDecimal INTEREST_RATE = BigDecimal.valueOf(3.5);
 
     @Override
-    public double getInterestRate() {
+    public BigDecimal getInterestRate() {
         return INTEREST_RATE;
     }
 

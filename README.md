@@ -2,6 +2,9 @@
 The application calculates the loan payment plan for a given 
 type of loan with loan amount and payback years as input parameters.
 Each type of loan has a different interest rate.
+The application also assumes a fixed monthly payment throughout 
+the loan term and does not consider additional factors 
+such as taxes or fees.
 
 ## Prerequisites:
 - Java

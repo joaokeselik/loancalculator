@@ -3,12 +3,11 @@ package com.keselik.loancalculator.service;
 import com.keselik.loancalculator.model.LoanPayment;
 import com.keselik.loancalculator.model.LoanPaymentPlan;
 import com.keselik.loancalculator.model.LoanType;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.math.RoundingMode;
-import java.util.Map;
 
 @Service
 public class LoanService {
@@ -16,38 +15,39 @@ public class LoanService {
     public LoanPaymentPlan calculateLoan(BigDecimal loanAmount, int paybackYears, LoanType loanType) {
         validateInputParameters(loanAmount, paybackYears);
 
-
-        double interestRate = loanType.getInterestRate();
-
+        BigDecimal interestRate = loanType.getInterestRate();
         int months = paybackYears * 12;
-        BigDecimal monthlyInterestRate = BigDecimal.valueOf(interestRate/100/12);
+        BigDecimal monthlyInterestRate = interestRate.divide(BigDecimal.valueOf(100 * 12), MathContext.DECIMAL128);
         BigDecimal monthlyPayment = calculateMonthlyPayment(loanAmount, monthlyInterestRate, months);
 
         LoanPaymentPlan paymentPlan = new LoanPaymentPlan();
         BigDecimal remainingAmount = loanAmount;
 
         for (int month = 1; month <= months; month++) {
+            BigDecimal interest = calculateInterest(remainingAmount, monthlyInterestRate);
+            BigDecimal principal = calculatePrincipal(monthlyPayment, interest);
+            remainingAmount = calculateRemainingAmount(remainingAmount, principal);
 
-
-
-            BigDecimal interest = remainingAmount.multiply(monthlyInterestRate);
-            BigDecimal principal = monthlyPayment.subtract(interest);
-
-
-            remainingAmount = remainingAmount.subtract(principal);
-
-            //TODO: the remainingAmount becomes negative with
-            // Loan Amount:
-            //1000000
-            //
-            //Payback Years:
-            //20
+            if (month == months && (remainingAmount.compareTo(BigDecimal.ZERO) != 0)) {
+                remainingAmount = BigDecimal.ZERO;
+            }
 
             LoanPayment payment = new LoanPayment(month, monthlyPayment, principal, interest, remainingAmount);
             paymentPlan.addPayment(payment);
         }
-
         return paymentPlan;
+    }
+
+    private BigDecimal calculateInterest(BigDecimal remainingAmount, BigDecimal monthlyInterestRate) {
+        return remainingAmount.multiply(monthlyInterestRate).setScale(2, RoundingMode.HALF_EVEN);
+    }
+
+    private BigDecimal calculatePrincipal(BigDecimal monthlyPayment, BigDecimal interest) {
+        return monthlyPayment.subtract(interest).setScale(2, RoundingMode.HALF_EVEN);
+    }
+
+    private BigDecimal calculateRemainingAmount(BigDecimal remainingAmount, BigDecimal principal) {
+        return remainingAmount.subtract(principal).setScale(2, RoundingMode.HALF_EVEN);
     }
 
     private void validateInputParameters(BigDecimal loanAmount, int paybackYears) {
@@ -66,12 +66,12 @@ public class LoanService {
         }
 
         if (monthlyInterestRate.compareTo(BigDecimal.ZERO) == 0) {
-            return loanAmount.divide(BigDecimal.valueOf(months), 2, RoundingMode.HALF_UP);
+            return loanAmount.divide(BigDecimal.valueOf(months), 2, RoundingMode.HALF_EVEN);
         }
 
-        BigDecimal temp = BigDecimal.ONE.add(monthlyInterestRate).pow(months);
-        BigDecimal monthlyPayment = loanAmount.multiply(monthlyInterestRate).multiply(temp)
-                .divide(temp.subtract(BigDecimal.ONE), 2, RoundingMode.HALF_UP);
+        BigDecimal compoundFactor = BigDecimal.ONE.add(monthlyInterestRate).pow(months);
+        BigDecimal monthlyPayment = loanAmount.multiply(monthlyInterestRate).multiply(compoundFactor)
+                .divide(compoundFactor.subtract(BigDecimal.ONE), 2, RoundingMode.HALF_EVEN);
 
         return monthlyPayment;
     }

@@ -1,5 +1,7 @@
 package com.keselik.loancalculator.model;
 
+import java.math.BigDecimal;
+
 public interface LoanType {
-    double getInterestRate();
+    BigDecimal getInterestRate();
 }

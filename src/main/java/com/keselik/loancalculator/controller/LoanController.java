@@ -32,8 +32,8 @@ public class LoanController {
         if (loanTypes.get(loanType) == null) {
             throw new LoanTypeNotFoundException(loanType, "Loan type not found: " + loanType);
         }
-
         model.addAttribute("loanType", loanType);
+
         return loanType + "-loan-form";
     }
 

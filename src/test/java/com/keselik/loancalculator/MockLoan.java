@@ -2,15 +2,17 @@ package com.keselik.loancalculator;
 
 import com.keselik.loancalculator.model.LoanType;
 
+import java.math.BigDecimal;
+
 public class MockLoan implements LoanType {
-    private double interestRate;
+    private BigDecimal interestRate;
 
     public MockLoan(double interestRate) {
-        this.interestRate = interestRate;
+        this.interestRate = BigDecimal.valueOf(interestRate);
     }
 
     @Override
-    public double getInterestRate() {
+    public BigDecimal getInterestRate() {
         return interestRate;
     }
 }
