@@ -1,6 +1,5 @@
 package com.keselik.loancalculator.model;
 
-
 import java.util.ArrayList;
 import java.util.List;
 

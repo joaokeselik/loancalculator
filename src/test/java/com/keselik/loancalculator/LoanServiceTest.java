@@ -31,7 +31,7 @@ class LoanServiceTest {
 		int paybackYears = 10;
 		String loanType = "housing";
 
-		LoanType mockLoanType = new MockLoan(3.5);
+		LoanType mockLoanType = new MockLoan(BigDecimal.valueOf(3.5));
 		when(loanTypes.get(loanType)).thenReturn(mockLoanType);
 
 		LoanPaymentPlan paymentPlan = loanService.calculateLoan(loanAmount, paybackYears, mockLoanType);
@@ -44,7 +44,7 @@ class LoanServiceTest {
 		int invalidPaybackYears = -5;
 		String loanType = "car";
 
-		LoanType mockLoanType = new MockLoan(4.5);
+		LoanType mockLoanType = new MockLoan(BigDecimal.valueOf(4.5));
 		when(loanTypes.get(loanType)).thenReturn(mockLoanType);
 
 		assertThrows(IllegalArgumentException.class,
@@ -57,7 +57,7 @@ class LoanServiceTest {
 		int paybackYears = 10;
 		String loanType = "personal";
 
-		LoanType mockLoanType = new MockLoan(6.5);
+		LoanType mockLoanType = new MockLoan(BigDecimal.valueOf(6.5));
 		when(loanTypes.get(loanType)).thenReturn(mockLoanType);
 
 		LoanPaymentPlan paymentPlan = loanService.calculateLoan(loanAmount, paybackYears, mockLoanType);

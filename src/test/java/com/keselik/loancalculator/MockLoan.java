@@ -7,8 +7,8 @@ import java.math.BigDecimal;
 public class MockLoan implements LoanType {
     private BigDecimal interestRate;
 
-    public MockLoan(double interestRate) {
-        this.interestRate = BigDecimal.valueOf(interestRate);
+    public MockLoan(BigDecimal interestRate) {
+        this.interestRate = interestRate;
     }
 
     @Override
