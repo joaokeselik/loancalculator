@@ -45,7 +45,7 @@ class LoanControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/calculate")
                         .param("loanAmount", "100000")
                         .param("paybackYears", "10")
-                        .flashAttr("loanType", "home")  // Pass the mock LoanType as a flash attribute
+                        .flashAttr("loanType", "home")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.view().name("loan-result"))
