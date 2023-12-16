@@ -23,7 +23,7 @@ mvn clean package spring-boot:run
 http://localhost:8080/loan/{loantype}
 
 Examples: </br>
-http://localhost:8080/loan/housing </br>
+http://localhost:8080/loan/home </br>
 http://localhost:8080/loan/car </br>
 http://localhost:8080/loan/personal </br>
 http://localhost:8080/loan/nonexistentloantype </br>

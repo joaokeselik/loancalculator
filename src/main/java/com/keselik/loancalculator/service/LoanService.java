@@ -39,15 +39,15 @@ public class LoanService {
     }
 
     private BigDecimal calculateInterest(BigDecimal remainingAmount, BigDecimal monthlyInterestRate) {
-        return remainingAmount.multiply(monthlyInterestRate).setScale(2, RoundingMode.HALF_EVEN);
+        return remainingAmount.multiply(monthlyInterestRate);
     }
 
     private BigDecimal calculatePrincipal(BigDecimal monthlyPayment, BigDecimal interest) {
-        return monthlyPayment.subtract(interest).setScale(2, RoundingMode.HALF_EVEN);
+        return monthlyPayment.subtract(interest);
     }
 
     private BigDecimal calculateRemainingAmount(BigDecimal remainingAmount, BigDecimal principal) {
-        return remainingAmount.subtract(principal).setScale(2, RoundingMode.HALF_EVEN);
+        return remainingAmount.subtract(principal);
     }
 
     private void validateInputParameters(BigDecimal loanAmount, int paybackYears) {
@@ -66,12 +66,12 @@ public class LoanService {
         }
 
         if (monthlyInterestRate.compareTo(BigDecimal.ZERO) == 0) {
-            return loanAmount.divide(BigDecimal.valueOf(months), 2, RoundingMode.HALF_EVEN);
+            return loanAmount.divide(BigDecimal.valueOf(months), 1000, RoundingMode.HALF_EVEN);
         }
 
         BigDecimal compoundFactor = BigDecimal.ONE.add(monthlyInterestRate).pow(months);
         BigDecimal monthlyPayment = loanAmount.multiply(monthlyInterestRate).multiply(compoundFactor)
-                .divide(compoundFactor.subtract(BigDecimal.ONE), 2, RoundingMode.HALF_EVEN);
+                .divide(compoundFactor.subtract(BigDecimal.ONE), 1000, RoundingMode.HALF_EVEN);
 
         return monthlyPayment;
     }

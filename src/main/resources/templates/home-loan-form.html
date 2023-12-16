@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Housing Loan Calculator</title>
+    <title>Home Loan Calculator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -52,7 +52,7 @@
     </style>
 </head>
 <body>
-<h2>Housing Loan Calculator</h2>
+<h2>Home Loan Calculator</h2>
 <form action="/calculate" method="post" th:action="@{/calculate}">
     <div th:if="${errorMessage}" style="color: red;" th:text="${errorMessage}"></div>
 

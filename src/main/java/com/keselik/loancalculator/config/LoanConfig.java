@@ -1,7 +1,7 @@
 package com.keselik.loancalculator.config;
 
 import com.keselik.loancalculator.model.CarLoan;
-import com.keselik.loancalculator.model.HousingLoan;
+import com.keselik.loancalculator.model.HomeLoan;
 import com.keselik.loancalculator.model.LoanType;
 import com.keselik.loancalculator.model.PersonalLoan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +22,9 @@ public class LoanConfig {
     }
 
     @Bean
-    @Qualifier("housing")
-    public LoanType housing() {
-        return new HousingLoan();
+    @Qualifier("home")
+    public LoanType home() {
+        return new HomeLoan();
     }
 
     @Bean

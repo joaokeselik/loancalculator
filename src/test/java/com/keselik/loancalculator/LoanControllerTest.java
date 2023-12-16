@@ -27,9 +27,9 @@ class LoanControllerTest {
 
     @Test
     void testShowLoanForm_ValidLoanType_ShouldReturnLoanFormPage() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/loan/housing"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/loan/home"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("housing-loan-form"));
+                .andExpect(MockMvcResultMatchers.view().name("home-loan-form"));
     }
 
     @Test
@@ -45,12 +45,12 @@ class LoanControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/calculate")
                         .param("loanAmount", "100000")
                         .param("paybackYears", "10")
-                        .flashAttr("loanType", "housing")  // Pass the mock LoanType as a flash attribute
+                        .flashAttr("loanType", "home")  // Pass the mock LoanType as a flash attribute
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.view().name("loan-result"))
                 .andExpect(model().attributeExists("paymentPlan"))
-                .andExpect(model().attribute("loanType", "housing"));
+                .andExpect(model().attribute("loanType", "home"));
     }
 
     @Test
@@ -58,7 +58,7 @@ class LoanControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/calculate")
                         .param("loanAmount", "-100000")
                         .param("paybackYears", "10")
-                        .param("loanType", "housing")
+                        .param("loanType", "home")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }

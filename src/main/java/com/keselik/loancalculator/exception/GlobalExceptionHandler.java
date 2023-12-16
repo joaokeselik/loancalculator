@@ -1,7 +1,7 @@
 package com.keselik.loancalculator.exception;
 
 import com.keselik.loancalculator.model.CarLoan;
-import com.keselik.loancalculator.model.HousingLoan;
+import com.keselik.loancalculator.model.HomeLoan;
 import com.keselik.loancalculator.model.LoanType;
 import com.keselik.loancalculator.model.PersonalLoan;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,14 +31,14 @@ public class GlobalExceptionHandler {
     }
 
     private String getLoanForm(LoanType loanType) {
-        if (loanType instanceof HousingLoan) {
-            return "housing-loan-form";
+        if (loanType instanceof HomeLoan) {
+            return "home-loan-form";
         } else if (loanType instanceof CarLoan) {
             return "car-loan-form";
         } else if (loanType instanceof PersonalLoan) {
             return "personal-loan-form";
         } else {
-            return "housing-loan-form";
+            return "home-loan-form";
         }
     }
 

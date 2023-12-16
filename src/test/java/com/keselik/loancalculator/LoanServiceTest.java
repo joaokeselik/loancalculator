@@ -29,7 +29,7 @@ class LoanServiceTest {
 	void testPaymentPlanNotNull() {
 		BigDecimal loanAmount = BigDecimal.valueOf(100000);
 		int paybackYears = 10;
-		String loanType = "housing";
+		String loanType = "home";
 
 		LoanType mockLoanType = new MockLoan(BigDecimal.valueOf(3.5));
 		when(loanTypes.get(loanType)).thenReturn(mockLoanType);
